@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track My Bus - Home</title>
+    <style>
+        * {
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        }
+    body {
+    font-family: 'Times New Roman', serif;
+    background-image: url("https://i.pinimg.com/736x/58/a6/c2/58a6c256dc079b82e58f409348908bbf.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;               
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 0;
+    }
+
+    body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;           
+    filter: blur(8px) brightness(0.7); 
+    z-index: -1;                   
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    }
+        header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #1e2a38;
+        padding: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        }
+
+        .logo-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        position: relative;
+        }
+
+        .logo-container img {
+        width: 60px;
+        margin-right: 10px;
+        position: relative;
+        transition: all 0.3s ease;
+        }
+
+        .logo-container span {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1e90ff;
+        position: relative;
+        transition: all 0.3s ease;
+        }
+
+        .logo-container span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0%;
+        height: 3px;
+        background-color: #ff5e00;
+        transition: width 0.3s ease;
+        }
+
+        .logo-container span:hover::after {
+        width: 100%;
+        }
+
+    .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    }
+
+    .logo-container img {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: fadeIn 2s ease-in-out, logoGlow 3s ease-in-out infinite alternate;
+    }
+
+    .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    }
+
+    .logo-container img {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: fadeIn 2s ease-in-out;
+    }
+
+    .logo-container span {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e90ff;
+    position: relative;
+    transition: all 0.3s ease;
+    animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+        .nav-container nav ul {
+        list-style: none;
+        display: flex;
+        gap: 90px;
+        }
+
+        nav a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        position: relative;
+        transition: color 0.3s ease;
+        }
+
+        nav a::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        left: 0;
+        bottom: -5px;
+        background-color: #1e90ff;
+        transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+        color: #1e90ff;
+        }
+
+        nav a:hover::after {
+        width: 100%;
+        }
+
+        .menu-toggle {
+        display: none;
+        font-size: 26px;
+        color: white;
+        cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+
+        .nav-container nav ul {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #1e2a38;
+            padding: 10px;
+            position: absolute;
+            top: 60px;
+            right: 15px;
+            width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-container nav ul.show {
+            display: flex;
+        }
+        }
+
+        .hero {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 80px 20px;
+        }
+
+        .hero-content {
+        max-width: 800px;
+        padding: 40px;
+        animation: fadeUp 1.5s ease;
+        }
+
+        .hero-content h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+        color: #1e90ff;
+        }
+
+        .hero-content p {
+        font-size: 20px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        color: #fff6f6;
+        }
+
+        .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        }
+
+        .btn {
+        background: #1e90ff;
+        color: #ffffff;
+        padding: 12px 28px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(30,144,255,0.3);
+        }
+
+        .btn:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,86,179,0.5);
+        }
+
+        @keyframes fadeUp {
+        from { opacity:0; transform: translateY(50px);}
+        to { opacity:1; transform: translateY(0);}
+        }
+    </style>
+    </head>
+    <body>
+
+    <header>
+    <div class="logo-container">
+        <img src="https://clipground.com/images/tb-png-9.png" alt="Bus Icon">
+        <span>TRACK MY BUS</span>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="nav-container" id="nav-container">
+        <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+        </nav>
+    </div>
+    </header>
+
+    <section class="hero">
+    <div class="hero-content">
+        <h1>Track Your Bus in Real Time</h1>
+        <p>
+        Stay updated with live GPS-enabled tracking for all campus buses.  
+        Save time, reduce waiting, and never miss your ride again!
+        </p>
+        <div class="btn-group">
+        <a href="services.html" class="btn">Explore Services</a>
+        </div>
+    </div>
+    </section>
+
+    <script>
+    document.getElementById("menu-toggle").addEventListener("click", function () {
+        document.querySelector(".nav-container nav ul").classList.toggle("show");
+    });
+    </script>
+
+    </body>
+    </html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: #f4f6f9;
+    }
+
+    /* Header */
+    header {
+      background: #1a237e;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Layout container */
+    .container {
+      display: flex;
+      flex: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #283593;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 12px;
+      text-decoration: none;
+      margin: 8px 0;
+      border-radius: 6px;
+    }
+
+    .sidebar a:hover {
+      background: #3949ab;
+    }
+
+    /* Main content */
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🚌 Track My Bus Admin</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Sidebar + Content -->
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Menu</h2>
+      <a href="#">Dashboard</a>
+      <a href="#">Students</a>
+      <a href="#">Teachers</a>
+      <a href="#">Buses</a>
+      <a href="#">Routes</a>
+      <a href="#">Reports</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <h1>Welcome, Admin 👋</h1>
+      <p>This is your dashboard overview.</p>
+
+      <div class="cards">
+        <div class="card" id="students">Total Students: 120</div>
+        <div class="card" id="teachers">Total Teachers: 15</div>
+        <div class="card" id="buses">Total Buses: 10</div>
+        <div class="card" id="trips">Active Trips: 7</div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

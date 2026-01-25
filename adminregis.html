@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>admin-login-page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bell Mt', sans-serif;
+      color: #1e2a38;
+      background-image: url('WhatsApp Image 2025-07-28 at 18.36.49_bf342cff.jpg');
+      animation: backgroundLoop 13s infinite;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+
+    @keyframes backgroundLoop {
+      0% {
+        background-image: url('WhatsApp Image 2025-07-28 at 18.36.49_bf342cff.jpg');
+      }
+      33% {
+        background-image: url('kpgu.jpg');
+      }
+      66% {
+        background-image: url('abc.jpg');
+      }
+      100% {
+        background-image: url('WhatsApp Image 2025-07-28 at 18.36.49_bf342cff.jpg');
+      }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #1e2a38;
+      padding: 10px 25px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 40px;
+      font-weight: bold;
+      color: #1e90ff;
+      text-transform: uppercase;
+      animation: fadeIn 2s ease-in-out;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      position: relative;
+    }
+
+    .logo span:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 3px;
+      background-color: #ff4500;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .logo span:hover:after {
+      width: 100%;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    nav {
+      margin-left: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 15px;
+      gap: 100px; 
+    }
+
+    nav li {
+      display: inline-block;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 16px;
+      transition: color 0.3s ease-in-out;
+    }
+    nav a:hover {
+      color: #1e90ff;
+    }
+ .login-container {
+      background-color: #f2f2f2;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      text-align: center;
+      margin: 50px auto;
+      margin-left: 68%;
+      margin-top:5%;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top: 8%;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top:30px;
+      background-color:skyblue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color:blue;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://clipground.com/images/tb-png-9.png" width="60" alt="Bus Icon" />
+      <span>Track My Bus</span>
+    </div>
+
+    <nav>
+      <ul>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="login-container">
+    <h2> Admin Signup</h2>
+    
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="Bus ID">Bus Id</label>
+        <input type="text" id="busid" name="busid" required autofocus />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit">Admin Signup</button>
+    </form>
+    <a href="adminlogin.html" style="display:block; margin-top:10px;color:blue;"></a>
+  </div>
+  <br/>
+
+<script>
+  document.getElementById("registerForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    
+    const busid = document.getElementById("busid").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("http://localhost:3000/adminregister", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ busid, password }),
+    });
+
+    const data = await res.json();
+
+    if (data.redirect) {
+      alert("Registration successful!");
+      window.location.href = data.redirect;
+    } else {
+      alert(data.message || "Registered (no redirect)");
+    }
+  });
+</script>
+</body>
+</html>

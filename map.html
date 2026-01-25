@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Map View</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const pickup = params.get("pickup");
+    const drop = params.get("drop");
+
+    const stationCoordinates = {
+      "station1": [22.3072, 73.1812],
+      "station2": [22.3105, 73.1765],
+      "station3": [22.3120, 73.1700],
+      "station4": [22.3150, 73.1650],
+      "station5": [22.3200, 73.1600],
+      "station6": [22.3250, 73.1550],
+      "station7": [22.3300, 73.1500],
+      "station8": [22.3350, 73.1450],
+      "station9": [22.3400, 73.1400],
+      "station10": [22.3450, 73.1350],
+      "station11": [22.3500, 73.1300],
+      "station12": [22.3550, 73.1250],
+      "station13": [22.3600, 73.1200],
+      "station14": [22.3650, 73.1150],
+      "station15": [22.3700, 73.1100],
+      "station16": [22.3750, 73.1050],
+      "station17": [22.3800, 73.1000],
+      "station18": [22.3850, 73.0950]
+    };
+
+    const dropLatLng = stationCoordinates[drop];
+
+    if (!dropLatLng) {
+      alert("Drop location not found.");
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userLatLng = [position.coords.latitude, position.coords.longitude];
+          const map = L.map("map").setView(userLatLng, 13);
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(map);
+
+          L.marker(userLatLng).addTo(map).bindPopup("You are here").openPopup();
+          L.marker(dropLatLng).addTo(map).bindPopup("Drop Point").openPopup();
+          L.polyline([userLatLng, dropLatLng], { color: 'blue' }).addTo(map);
+        },
+        () => {
+          alert("Location access denied.");
+        }
+      );
+    }
+  </script>
+</body>
+</html>

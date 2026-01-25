@@ -1,0 +1,321 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:bottom-box;
+}
+body {
+    font-family: 'Bell Mt', sans-serif;
+    background-image: url('https://static.wixstatic.com/media/a96660_f93195cb17794c99a7034b1b5fb4330e~mv2.png/v1/fill/w_1901,h_913,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/web%20home%20bus%2017%20(1).png');
+    background-size: 1660px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 104%;
+    height: 107%;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e2a38;
+    padding: 15px 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+    color: #1e90ff;
+    text-transform: uppercase;
+    animation: fadeIn 2s ease-in-out;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    display: inline-block;
+    position: relative;
+}
+
+.logo span:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: #ff4500;
+    transition: width 0.5s ease-in-out;
+}
+
+.logo span:hover:after {
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav {
+    flex-grow: 1;
+    text-align: right;
+}
+
+nav ul {
+    list-style-type: none;
+    display: inline-flex;
+    padding: 10px;
+    gap: 30px;
+}
+
+nav li {
+    margin: 0 39px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+nav a:hover {
+    color: #1e90ff;
+}
+
+.dropdown-menu {
+display: none;
+position: absolute;
+background-color: white; 
+min-width: 150px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+padding: 10px 0;
+z-index: 1;
+}
+
+nav li:hover .dropdown-menu {
+display: block;
+}
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-grow: 1;
+    padding: 20px;
+}
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    font-weight: bold;
+    color: white; 
+    text-align: center;
+}
+
+.about-container {
+    background-color: white;
+    padding: 50px;
+    text-align: center;
+    margin-top: 100vh; 
+        
+}
+
+.about-heading {
+    font-size: 100px;
+    color: orange;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-text {
+    font-size: 19px;
+    color:#4682B4;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-family: 'Georgia', serif;
+}
+
+.live-texts {
+    margin-top: -3  px;
+    font-size:50px;
+    color: orange;
+    font-weight: bold;
+    position: absolute;
+    right: 5%; 
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 100px;
+    padding: 30px;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.left-text,
+.right-text {
+    max-width: 500px;
+    position: relative;
+    margin-left: 0px; 
+}
+
+.live-text, .live-texts {
+    font-size: 32px;
+    color: orange;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.desc-text {
+    font-size: 18px;
+    color: #4682B4;
+    line-height: 1.5;
+}
+
+.team-section {
+    text-align: center;
+    margin-top: 80px;
+    color: white;
+  }
+  
+  .team-section h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: #FFA500;
+  }
+  
+  .team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  
+  .team-card {
+    background: rgba(30, 144, 255, 0.2); 
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    padding: 30px;
+    width: 250px;
+    text-align: center;
+    transition: 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .team-card:hover {
+    transform: translateY(-10px);
+    background: lab(68.38% 1.6 -36.35 / 0.886);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .team-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .team-card h3 {
+    font-size: 22px;
+    color: #FFD700;
+    margin-bottom: 10px;
+  }
+  
+  .team-card p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .team-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      flex-direction: column;
+    }
+    nav ul {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+/* Hover effects for left/right text */
+.left-text, .right-text {
+  transition: transform 0.4s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.left-text:hover, .right-text:hover {
+  transform: scale(1.05);
+}
+
+.left-text:hover .live-text,
+.right-text:hover .live-texts {
+  color: #FFD700; /* Gold glow on hover */
+}
+
+/* Existing scroll animations smoother */
+.scroll-effect {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-effect.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slide from left/right refined */
+.scroll-left {
+  transform: translateX(-80px);
+}
+.scroll-left.visible {
+  transform: translateX(0);
+}
+
+.scroll-right {
+  transform: translateX(80px);
+}
+.scroll-right.visible {
+  transform: translateX(0);
+}
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+@keyframes textGlow {
+    from { text-shadow: 0 0 10px #ff9900, 0 0 20px #ff7300; }
+    to   { text-shadow: 0 0 20px #ff4500, 0 0 40px #ff4500; }
+}

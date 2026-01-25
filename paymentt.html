@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Page</title>
+<style>
+    body {
+        font-family: 'Bell Mt', sans-serif;
+        background-color: #F0F8FF;
+        margin: 0;
+        padding: 0;
+    }
+
+    .payment-container {
+        background: white;
+        max-width: 650px;
+        margin: 60px auto;
+        padding: 50px;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        color: #1a1a80;
+        margin-bottom: 25px;
+        font-size: 26px;
+    }
+
+    label {
+        display: block;
+        margin: 12px 0 6px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    input[type="text"], input[type="email"], input[type="number"], 
+    input[type="date"], select, input[type="file"] {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+
+    .photo-preview {
+        display: none;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .photo-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 12px;
+        border: 2px solid #ccc;
+        padding: 5px;
+        background: #fff;
+    }
+
+    .payment-methods {
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .payment-methods label {
+        display: block;
+        font-weight: normal;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .payment-methods input {
+        margin-right: 8px;
+    }
+
+    button {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        color: white;
+        border: none;
+        padding: 14px;
+        width: 100%;
+        font-size: 17px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #1b4f72;
+    }
+
+    .qr-details {
+        display: none;
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    .qr-details img {
+        width: 220px;
+        height: 220px;
+        border: 2px solid grey;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fff;
+    }
+
+    .expired {
+        color: red;
+        font-weight: bold;
+        margin-top: 12px;
+    }
+</style>
+</head>
+<body>
+
+<div class="payment-container">
+    <h2>Make a Payment</h2>
+<form id="paymentForm" action="/payment-success" method="POST">
+
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" name="studentName" placeholder="Enter Student Name" required>
+
+        <label for="parentName">Parent/Guardian Name</label>
+        <input type="text" id="parentName" name="parentName" placeholder="Enter Parent/Guardian Name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+
+        <label for="mobile">Mobile Number</label>
+        <input type="number" id="mobile" name="mobile" placeholder="Enter Mobile Number" required>
+
+        <label for="branch">Branch</label>
+        <select id="branch" name="branch" required>
+            <option value="" disabled selected>-- Select Branch --</option>
+            <option value="cse">cse</option>
+            <option value="ce">ce</option>
+            <option value="it">IT</option>
+        </select>
+
+        <label for="date">Payment Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="photo">Upload Student Photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+        <div class="photo-preview" id="photoPreview">
+            <p><b>Preview:</b></p>
+            <img id="previewImg" src="" alt="Student Photo Preview">
+        </div>
+
+        
+        <label for="route">Select Route</label>
+        <select id="route" name="route" required>
+            <option value="" disabled selected>-- Select Route --</option>
+            <option value="21000">Bus 25 - Amit Nagar (₹21,000)</option>
+            <option value="19000">Bus 26 - Mahavir Hall (₹19,000)</option>
+            <option value="18500">Bus 27 - ABC Area (₹18,500)</option>
+        </select>
+
+        <label for="amount">Amount (₹)</label>
+        <input type="number" id="amount" name="amount" value="21000" min="1" required>
+
+        
+        <div class="payment-methods">
+            <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
+            <label><input type="radio" name="paymentMethod" value="paytm"> Paytm</label>
+        </div>
+
+        <button type="submit">Generate QR for Payment</button>
+    </form>
+
+    <div class="qr-details" id="qrBox">
+        <p id="qrText">Scan this QR to pay:</p>
+        <img id="qr.jpg" src="" alt="Payment QR">
+        <p id="timer"></p>
+        <p class="expired" id="expiredMsg" style="display:none;">❌ QR Expired! Please generate again.</p>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById("paymentForm");
+const qrBox = document.getElementById("qrBox");
+const qrImg = document.getElementById("qrCode");
+const qrText = document.getElementById("qrText");
+const timerDisplay = document.getElementById("timer");
+const expiredMsg = document.getElementById("expiredMsg");
+const routeSelect = document.getElementById("route");
+const amountInput = document.getElementById("amount");
+
+
+const photoInput = document.getElementById("photo");
+const photoPreview = document.getElementById("photoPreview");
+const previewImg = document.getElementById("previewImg");
+
+photoInput.addEventListener("change", () => {
+    const file = photoInput.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewImg.src = e.target.result;
+            photoPreview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        photoPreview.style.display = "none";
+    }
+});
+
+let timer;
+let timeLeft = 300;
+
+routeSelect.addEventListener("change", () => {
+    amountInput.value = routeSelect.value;
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const amount = amountInput.value;
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+    if (!amount || amount <= 0) {
+        alert("Enter a valid amount!");
+        return;
+    }
+    if (!paymentMethod) {
+        alert("Please select a payment method.");
+        return;
+    }
+
+    let upiId, name, txnNote;
+
+    if (paymentMethod.value === "upi") {
+        upiId = "test@upi";
+        name = "Track My Bus";
+        txnNote = "Bus Fee Payment";
+        qrText.textContent = "Scan this QR to pay via UPI:";
+    } else if (paymentMethod.value === "paytm") {
+        upiId = "paytmqr2810050501011@paytm";
+        name = "Track My Bus";
+        txnNote = "Bus Fee Payment (Paytm)";
+        qrText.textContent = "Scan this QR to pay via Paytm:";
+    }
+
+    const upiUrl = upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(txnNote)};
+    const qrApi = https://quickchart.io/qr?text=${encodeURIComponent(upiUrl)}&size=220;
+
+    qrImg.src = qrApi;
+    qrBox.style.display = "block";
+    expiredMsg.style.display = "none";
+
+    clearInterval(timer);
+    timeLeft = 300;
+    startTimer();
+});
+
+function startTimer() {
+    timer = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            qrImg.src = "";
+            timerDisplay.textContent = "";
+            expiredMsg.style.display = "block";
+        } else {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `⏳ QR valid for: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+            timeLeft--;
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>

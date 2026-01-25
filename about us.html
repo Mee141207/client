@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacts Page</title>
+<link rel="stylesheet" href="anmol.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="https://clipground.com/images/tb-png-9.png" width="60">
+        <span>Track My Bus</span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="paymentt.html">payment</a></li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="logout.html">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h1>
+    <img src="https://krishnaayurvedic.org/wp-content/uploads/2022/12/kpgu-logo-white-1024x432.png" width="240">
+</h1>
+
+<div class="center-text">Never Miss Your Ride Again</div>
+
+<div class="about-container">
+    <div class="about-heading">About this App</div>
+    <p class="about-text">
+        Track My Bus is a smart and efficient solution designed to provide real-time bus tracking.
+        It ensures commuters never miss their ride by showing accurate updates and estimated arrival times.
+        Say goodbye to waiting uncertainty—plan your journey effortlessly with Track My Bus!
+    </p>
+</div>
+
+<div class="image-container">
+    <div class="left-text">
+        <div class="live-text">Live Bus Tracking</div>
+        <div class="desc-text">
+            See it, catch it! Live bus tracking<br>
+            on Catch My Bus lets you ditch the wait<br>
+            and see exactly where your bus is.
+        </div>
+    </div>
+    <img src="https://img.freepik.com/premium-vector/efficient-smart-city-transport-website-application_1339080-5732.jpg" width="400">
+    <div class="right-text">
+        <div class="live-texts">Real-Time Tracking</div>
+        <div class="desc-text"><br><br>
+            Receive real-time updates on your bus status,<br>
+            including estimated time of arrival and <br>
+            unexpected delays.
+        </div>
+    </div>
+</div>
+
+</div>
+<section class="team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+        <div class="team-card">
+            <img src="a.jpeg" alt="team1">
+            <h3>Anmol  Patel</h3>
+            <p>Team Leader & Frontend Developer and also backend assistant</p>
+        </div>
+        <div class="team-card">
+            <img src="manasi.jpeg" alt="team2">
+            <h3>Manasi Adhvaryu</h3>
+            <p>Backend Developer & Frontend Assistant</p>
+
+            </div>
+            <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const elements = document.querySelectorAll(".scroll-effect");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible"); 
+      }
+    });
+  }, { threshold: 0.2 });
+
+  elements.forEach(el => observer.observe(el));
+
+  
+  window.addEventListener("scroll", () => {
+    const text = document.querySelector(".center-text");
+    const offset = window.scrollY * 0.3; 
+    text.style.transform = translate(-50% , calc(-50% + ${offset}px));
+  });
+});
+</script>
+
+        </body>
+        </html>

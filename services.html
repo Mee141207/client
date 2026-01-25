@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Track My Bus - Services</title>
+  <style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Bell Mt', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f8ff;
+  color: #1e2a38;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e2a38;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container img {
+  width: 60px;
+  margin-right: 10px;
+  animation: slideDownFade 1s ease forwards;
+  opacity: 0;
+}
+
+.logo-container span {
+  font-size: 35px;
+  font-weight: bold;
+  color: #1e90ff;
+  position: relative;
+  animation: slideDownFade 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container img::after,
+.logo-container span::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  left: 0;
+  bottom: -5px;
+  background-color: #ff4500;
+  transition: width 0.3s ease;
+}
+
+.logo-container img:hover::after,
+.logo-container span:hover::after {
+  width: 100%;
+}
+
+.nav-container nav ul {
+  list-style: none;
+  display: flex;
+  gap: 90px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+nav a:hover {
+  color: #1e90ff;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-container nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #1e2a38;
+    padding: 10px;
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  .nav-container nav ul.show {
+    display: flex;
+  }
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: left;
+  padding: 20px;
+}
+
+.hero img {
+  width: 200px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  color: #1e2a38;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  padding: 20px 30px;
+}
+
+.service-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: scale(1.03);
+}
+
+.service-card img {
+  width: 80%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  margin-bottom: 10px;
+  color: #1e2a38;
+}
+
+.service-card p {
+  font-size: 15px;
+  color: #555;
+}
+.tracking-form {
+  padding: 30px 20px;
+  background-color: #fff;
+  max-width: 800px;
+  width: 100%;
+  margin: 40px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tracking-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e2a38;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+select, .submit-button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.submit-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+#map {
+  height: 400px;
+  width: 90%;
+  margin: 40px auto;
+  display: none;
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero img {
+    margin: 0 auto;
+  }
+
+.h1 {
+  font-size: 32px;
+  color: #1e2a38;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+}
+.video-container {
+  margin: 30px auto;
+  width: fit-content;
+  padding: 10px; 
+  border-radius: 10px;
+  background-color:black;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.video-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+.download-card {
+  background:#ccc;
+  font-family:  'Bell Mt', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 21px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  margin: 30px auto;
+  text-align: center;
+  transition: transform 0.3s ease; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+h4{
+  text-align: left;
+  font-size: 26px;
+  transition: transform 0.4s ease; 
+  margin-left: 15px;
+  color: grey;
+  font-weight: bold;
+}
+
+h4:hover {
+  color:#1e2a38; 
+}
+
+.download-card:hover{
+    transform: scale(1.03);
+}
+
+</style>
+  <link rel="stylesheet" href="servicespage.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img src="https://clipground.com/images/tb-png-9.png" alt="Bus Icon">
+      <span><h3>TRACK MY BUS</h3></span>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="nav-container" id="nav-container">
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+           <li><a href="paymentt.html">payment</a></li>
+          <li><a href="about us.html">About Us</a></li>
+          <li><a href="logout.html">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="https://krishnaayurvedic.org/wp-content/uploads/2022/12/kpgu-logo-white-1024x432.png" alt="KPGU Logo">
+    <h1>Our Services</h1>
+  </section>
+
+  <section class="services">
+    <div class="service-card">
+     <img src="https://img.freepik.com/free-vector/directions-concept-illustration_114360-1741.jpg?w=826" alt="Live Location">
+      <h3>Live Location</h3>
+      <p>See exactly where your bus is in real-time — no need to wait blindly.</p>
+    </div>
+    <div class="service-card">
+      <img src="https://img.freepik.com/free-photo/mobile-app-location-digital-art_23-2151762867.jpg?w=740" alt="Easy Tracking">
+      <h3>Easy Tracking</h3>
+      <p>Choose your pickup and drop point and instantly track your bus on the route.</p>
+    </div>
+    <div class="service-card">
+      <img src="https://img.freepik.com/free-vector/push-notifications-concept-illustration_114360-4730.jpg?w=826" alt="Timely Alerts">
+      <h3>Timely Alerts</h3>
+      <p>Get notified about estimated arrivals, delays, and route changes.</p>
+    </div>
+    <div class="service-card">
+      <img src="https://img.freepik.com/free-vector/public-transport-concept-illustration_335657-5621.jpg?w=826" alt="Bus Alerts">
+      <h3>Bus Alerts</h3>
+      <p>Receive real-time updates on your bus status, including estimated time of arrival and unexpected delays.</p>
+    </div>
+  </section>
+
+
+  <section class="tracking-form">
+    <h2>Track Your Bus</h2>
+    <form action="#" method="POST">
+      <label for="pickup">Choose Pickup:</label>
+      <select id="pickup" name="pickup" required>
+        <option value="">Select Pickup Point</option>
+        <option value="station1">Jeevanbharti</option>
+        <option value="station2">Muktanand</option>
+        <option value="station3">Water Tank</option>
+        <option value="station4">Sangam</option>
+        <option value="station5">Moti Nagar</option>
+        <option value="station6">Gadheda Market</option>
+        <option value="station7">Mahavir Hall</option>
+        <option value="station8">Kamla Nagar</option>
+        <option value="station9">Aajwa Bypass</option>
+        <option value="station10">Dada Circle</option>
+        <option value="station11">Sama Talav</option>
+        <option value="station12">Jalaram Mandir</option>
+        <option value="station13">Chanakya Puri</option>
+        <option value="station14">L.L Circle</option>
+        <option value="station15">Amit Nagar</option>
+        <option value="station16">Khodiyar Nagar</option>
+        <option value="station17">Sardar Estate</option>
+        <option value="station18">KPGU</option>
+      </select>
+
+      <label for="drop">Choose Drop Point:</label>
+      <select id="drop" name="drop" required>
+        <option value="">Select Drop Point</option>
+        <option value="station1">Jeevanbharti</option>
+        <option value="station2">Muktanand</option>
+        <option value="station3">Water Tank</option>
+        <option value="station4">Sangam</option>
+        <option value="station5">Moti Nagar</option>
+        <option value="station6">Gadheda Market</option>
+        <option value="station7">Mahavir Hall</option>
+        <option value="station8">Kamla Nagar</option>
+        <option value="station9">Aajwa Bypass</option>
+        <option value="station10">Dada Circle</option>
+        <option value="station11">Sama Talav</option>
+        <option value="station12">Jalaram Mandir</option>
+        <option value="station13">Chanakya Puri</option>
+        <option value="station14">L.L Circle</option>
+        <option value="station15">Amit Nagar</option>
+        <option value="station16">Khodiyar Nagar</option>
+        <option value="station17">Sardar Estate</option>
+        <option value="station18">KPGU</option>
+      </select>
+
+      <button type="submit" class="submit-button">Start Tracking</button>
+    </form>
+  </section>
+
+<div id="map"></div>
+<h1 style = text-align:center;>❖Learn How To Track Bus</h1>
+  <div class="video-container">
+    <video width="800" height="360" controls >
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+  <h4>❖Download this pdf to see future admin updates:-</h4>
+  <div class = "download-card"><a href="/download-schedule" target="_blank">Download this pdf</a></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+
+  document.getElementById("menu-toggle").addEventListener("click", function () {
+    document.querySelector(".nav-container nav ul").classList.toggle("show");
+  });
+
+  const stationCoordinates = {
+    "station1": [22.3072, 73.1812],
+    "station2": [22.3105, 73.1765],
+    "station3": [22.3120, 73.1700],
+    "station4": [22.3150, 73.1650],
+    "station5": [22.3200, 73.1600],
+    "station6": [22.3250, 73.1550],
+    "station7": [22.3300, 73.1500],
+    "station8": [22.3350, 73.1450],
+    "station9": [22.3400, 73.1400],
+    "station10": [22.3450, 73.1350],
+    "station11": [22.3500, 73.1300],
+    "station12": [22.3550, 73.1250],
+    "station13": [22.3600, 73.1200],
+    "station14": [22.3650, 73.1150],
+    "station15": [22.3700, 73.1100],
+    "station16": [22.3750, 73.1050],
+    "station17": [22.3800, 73.1000],
+    "station18": [22.3850, 73.0950]
+  };
+
+  const form = document.querySelector(".tracking-form form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const pickup = document.getElementById("pickup").value;
+    const drop = document.getElementById("drop").value;
+
+    if (!pickup || !drop) {
+      alert("Please select both pickup and drop points.");
+      return;
+    }
+    const url = `map.html?pickup=${pickup}&drop=${drop}`;
+    window.open(url, "_blank");
+  });
+  
+</script>
+
+</body>
+</html>

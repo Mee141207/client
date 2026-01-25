@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track My Bus - Night Sea</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(to bottom, #04172b, #000820);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 200;
+      animation: fadeOut 1s ease forwards;
+      animation-delay: 4s;
+    }
+    #intro img {
+      width: 120px;
+      filter: drop-shadow(0 0 20px #001f7f);
+      animation: pulse 2s infinite; 
+    }
+    #intro h1 {
+      color: #00f0ff;
+      font-size: 2rem;
+      margin-top: 15px;
+      text-shadow: 0 0 25px #001f7f, 0 0 35px #0044ff;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .animated-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, #04172b, #000820 80%);
+      background-size: cover;
+      animation: waveFlow 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    @keyframes waveFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 50% 100%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation: rise linear infinite;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.8); opacity: 0.8; }
+      100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+    }
+
+    
+    .role-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 50px 40px;
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0,255,255,0.3);
+      width: 350px;
+      box-shadow: 0 0 50px rgba(0,255,255,0.3);
+      text-align: center;
+      animation: floatCard 5s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #00f0ff;
+      text-shadow: 0 0 15px #00f0ff, 0 0 25px #0088ff;
+      animation: glowPulse 3s infinite;
+    }
+    .logo img {
+      width: 42px;
+      filter: drop-shadow(0 0 8px #00f0ff);
+    }
+
+    .role-card h1 {
+      font-size: 1.8em;
+      color: #e0faff;
+      margin-bottom: 30px;
+    }
+
+    .role-options {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .role-btn {
+      padding: 14px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(90deg, #00f0ff, #0088ff);
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .role-btn:hover {
+      background: linear-gradient(90deg, #0f235f, #061141);
+      box-shadow: 0 0 20px rgba(14, 166, 231, 0.6);
+      transform: scale(1.05);
+    }
+    .role-btn:active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: rgba(255,255,255,0.3);
+      transform: translate(-50%, -50%) scale(0);
+      animation: ripple 0.5s ease-out;
+      border-radius: 50%;
+    }
+    @keyframes ripple {
+      to { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    .role-desc {
+      font-size: 0.9em;
+      color: #c0d6ff;
+      font-style: italic;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="intro">
+    <img src="https://clipground.com/images/tb-png-9.png" alt="Logo">
+    <h1>Track My Bus</h1>
+  </div>
+
+  <div class="animated-bg"></div>
+  <div id="bubbles"></div>
+
+  <div class="role-card">
+    <div class="logo">
+      <img src="https://clipground.com/images/tb-png-9.png" alt="Bus Icon">
+      Track My Bus
+    </div>
+    <h1>Select Your Role</h1>
+    <div class="role-options">
+      <button class="role-btn" id="adminBtn">Admin</button>
+      <div class="role-desc">Bus manager or administrator</div>
+      <button class="role-btn" id="studentBtn">Student or Teacher</button>
+      <div class="role-desc">Traveller, student, or teacher</div>
+    </div>
+  </div>
+
+  <audio id="bgMusic" src="intro-sound-180639.mp3"></audio>
+
+  <script>
+    document.getElementById("adminBtn").onclick = () => window.location.href = "adminlogin.html";
+    document.getElementById("studentBtn").onclick = () => window.location.href = "studentlogin.html";
+
+    const bubbleContainer = document.getElementById('bubbles');
+    for (let i = 0; i < 40; i++) {
+      const b = document.createElement('div');
+      b.classList.add('bubble');
+      const size = Math.random() * 10 + 5;
+      b.style.width = `${size}px`;
+      b.style.height = `${size}px`;
+      b.style.left = `${Math.random() * 100}%`;
+      b.style.animationDuration = `${5 + Math.random() * 10}s`;
+      bubbleContainer.appendChild(b);
+    }
+
+    const music = document.getElementById('bgMusic');
+
+    function playIntroMusic() {
+      music.play().catch(()=>{});
+      setTimeout(() => {
+        music.pause();
+        music.currentTime = 0;
+      }, 3000); 
+    }
+
+    window.addEventListener('load', () => {
+      music.play().then(() => {
+        setTimeout(() => {
+          music.pause();
+          music.currentTime = 0;
+        }, 7000);
+      }).catch(() => {
+
+        document.body.addEventListener('click', playIntroMusic, { once: true });
+      });
+    });
+  </script>
+</body>
+</html>

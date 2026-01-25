@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Schedule</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .upload-box {
+      margin-bottom:40px;
+      background: white;
+      padding: 21px 20px 21px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease; 
+      text-align: center;
+    }
+    .upload-box:hover{
+       transform: scale(1.03);
+    }
+    input[type="file"] {
+      margin: 15px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-box">
+    <h2>Upload Bus Schedule (PDF)</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <input type="file" name="pdf" accept="application/pdf" required>
+      <button type="submit">Upload PDF</button>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+
+      try {
+        const res = await fetch("/upload-schedule", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        document.getElementById("status").innerText = data.message;
+      } catch (err) {
+        document.getElementById("status").innerText = "❌ Upload failed";
+      }
+    });
+  </script>
+</body>
+</html>

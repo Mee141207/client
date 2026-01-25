@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bell Mt', sans-serif;
+      color: #1e2a38;
+      background-image: url('https://res.cloudinary.com/dby2vbxv3/image/upload/v1709961948/KPGU/Banners/banner-1.webp');
+      animation: backgroundLoop 13s infinite;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+
+    @keyframes backgroundLoop {
+      0% {
+        background-image: url('https://res.cloudinary.com/dby2vbxv3/image/upload/v1709961948/KPGU/Banners/banner-1.webp');
+      }
+      33% {
+        background-image: url('https://res.cloudinary.com/dby2vbxv3/image/upload/v1711006990/KPGU/Banners/banner-6.webp');
+      }
+      66% {
+        background-image: url('https://res.cloudinary.com/dby2vbxv3/image/upload/v1703843541/KPGU/campus/KPGU-Gate.webp');
+      }
+      100% {
+        background-image: url('https://res.cloudinary.com/dby2vbxv3/image/upload/v1709961948/KPGU/Banners/banner-1.webp');
+      }
+    }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1e2a38;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.logo-container {
+  display: flex;  
+  align-items: center;
+}
+
+.logo-container img {
+  width: 60px;
+  margin-right: 10px;
+  animation: slideDownFade 1s ease forwards;
+  opacity: 0;
+}
+
+.logo-container span {
+  font-size: 33px;
+  font-weight: bold;
+  color: #1e90ff;
+  position: relative;
+  animation: slideDownFade 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container img::after,
+.logo-container span::after {
+  content: "";
+  position:absolute;
+  width: 0%;
+  height: 3px;
+  left: 0;
+  bottom: -5px;
+  background-color: #ff4500;
+  transition: width 0.3s ease;
+}
+
+.logo-container img:hover::after,
+.logo-container span:hover::after {
+  width: 100%;
+}
+    .login-container {
+      background-color: #f2f2f2;
+      padding: 30px 22px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      text-align: center;
+      margin-left:68%;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top: 8%;
+    }
+
+    input {
+      width: 95%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top:30px;
+      background-color:skyblue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background-color:blue;
+    }
+.kpgu-logo{
+  margin-left:15px;
+  padding-top: 15px;
+  width:200px;
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://clipground.com/images/tb-png-9.png" width="60" alt="Bus Icon" />
+      <span>TRACK MY BUS</span>
+    </div>
+  </header>
+  <img class="kpgu-logo" src="https://krishnaayurvedic.org/wp-content/uploads/2022/12/kpgu-logo-white-1024x432.png" alt="KPGU Logo">
+</div>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit">Login</button>
+     <a href="regis.html">dont have an account sign up</a>
+    </form>
+  </div>
+<br/>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      alert(data.message);
+      if (data.message === 'Login successful') {
+        window.location.href = 'services.html';
+  }
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('newUsername').value;
+      const password = document.getElementById('newPassword').value;
+
+      const res = await fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json();
+      alert(data.message);
+  });
+  </script>
+</body>
+</html>
