@@ -1,0 +1,7 @@
+public/uploads/*
+!public/uploads/.gitkeep
+node_modules/
+uploads/*
+.env
+.node_repl_history
+.php_history
