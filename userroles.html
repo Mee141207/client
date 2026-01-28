@@ -189,44 +189,46 @@
   </div>
 
   <audio id="bgMusic" src="intro-sound-180639.mp3"></audio>
+<script>
+  document.getElementById("adminBtn").addEventListener("click", () => {
+    window.location.href = "adminlogin.html";
+  });
 
-  <script>
-    document.getElementById("adminBtn").onclick = () => window.location.href = "adminlogin.html";
-    document.getElementById("studentBtn").onclick = () => window.location.href = "studentlogin.html";
+  document.getElementById("studentBtn").addEventListener("click", () => {
+    window.location.href = "studentlogin.html";
+  });
 
-    const bubbleContainer = document.getElementById('bubbles');
-    for (let i = 0; i < 40; i++) {
-      const b = document.createElement('div');
-      b.classList.add('bubble');
-      const size = Math.random() * 10 + 5;
-      b.style.width = `${size}px`;
-      b.style.height = `${size}px`;
-      b.style.left = `${Math.random() * 100}%`;
-      b.style.animationDuration = `${5 + Math.random() * 10}s`;
-      bubbleContainer.appendChild(b);
-    }
+  const bubbleContainer = document.getElementById('bubbles');
+  for (let i = 0; i < 40; i++) {
+    const b = document.createElement('div');
+    b.classList.add('bubble');
+    const size = Math.random() * 10 + 5;
+    b.style.width = `${size}px`;
+    b.style.height = `${size}px`;
+    b.style.left = `${Math.random() * 100}%`;
+    b.style.animationDuration = `${5 + Math.random() * 10}s`;
+    bubbleContainer.appendChild(b);
+  }
 
-    const music = document.getElementById('bgMusic');
+  const music = document.getElementById('bgMusic');
 
-    function playIntroMusic() {
-      music.play().catch(()=>{});
+  window.addEventListener('load', () => {
+    music.play().then(() => {
       setTimeout(() => {
         music.pause();
         music.currentTime = 0;
-      }, 3000); 
-    }
-
-    window.addEventListener('load', () => {
-      music.play().then(() => {
+      }, 4000);
+    }).catch(() => {
+      document.body.addEventListener('click', () => {
+        music.play();
         setTimeout(() => {
           music.pause();
           music.currentTime = 0;
-        }, 7000);
-      }).catch(() => {
-
-        document.body.addEventListener('click', playIntroMusic, { once: true });
-      });
+        }, 4000);
+      }, { once: true });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>

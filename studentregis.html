@@ -199,20 +199,18 @@
     const busid = document.getElementById('busid').value;
     const password = document.getElementById('password').value;
 
-    const res = await fetch('http://localhost:3000/studentregister', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ busid, password }),
-    });
+    const res = await fetch("https://bus-tracking-backend-7dt2.onrender.com/studentregister", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ busid, password })
+})
+.then(res => res.json())
+.then(data => {
+  alert(data.message);
+  if (data.redirect) window.location.href = data.redirect;
+});
 
-    const data = await res.json();
-    alert(data.message);
-    if (data.redirect) {
-      window.location.href = data.redirect;
-    }
   });
 </script>
-
-  </script>
 </body>
 </html>
